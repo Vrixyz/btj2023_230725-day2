@@ -37,7 +37,7 @@ jobs:
 
       - name: Prepare package
         run: |
-          wasm-bindgen --no-typescript --out-name bevy_game --out-dir dist --target web target/wasm32-unknown-unknown/release/${{ env.binary }}.wasm
+          wasm-bindgen --no-typescript --out-name game --out-dir dist --target web target/wasm32-unknown-unknown/release/${{ env.binary }}.wasm
           cp -r assets dist/
 
       - name: Package as a zip
