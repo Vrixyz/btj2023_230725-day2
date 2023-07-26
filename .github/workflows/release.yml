@@ -27,17 +27,21 @@ jobs:
         run: |
           cargo install wasm-bindgen-cli
 
+      - name: remove rust-toolchain
+        run: |
+          rm rust-toolchain.toml
+
       - name: Build
         run: |
           cargo build --release --target wasm32-unknown-unknown
 
       - name: Prepare package
         run: |
-          wasm-bindgen --no-typescript --out-name bevy_game --out-dir wasm --target web target/wasm32-unknown-unknown/release/${{ env.binary }}.wasm
-          cp -r assets wasm/
+          wasm-bindgen --no-typescript --out-name bevy_game --out-dir dist --target web target/wasm32-unknown-unknown/release/${{ env.binary }}.wasm
+          cp -r assets dist/
 
       - name: Package as a zip
-        working-directory: ./wasm
+        working-directory: ./dist
         run: |
           zip --recurse-paths ../${{ env.binary }}.zip .
 
